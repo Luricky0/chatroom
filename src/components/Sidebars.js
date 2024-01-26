@@ -5,6 +5,8 @@ import Conversations from "./Conversations";
 import {NewConversationsModal} from "./NewConversationsModal";
 import {NewContactsModal} from "./NewContactsModal";
 import Contacts from "./Contacts";
+import '../less/Sidebars.less'
+
 const menuItems=[
     {
         label: '会话',
@@ -26,13 +28,23 @@ export default function Sidebars({id}){
 
     return(
         <Sider>
-            <Menu onClick={onMenuClick} selectedKeys={[current]} mode="horizontal" items={menuItems}/>
-            {conversationsIsOpen?<Conversations/>:<Contacts/>}
-            <Button onClick={()=>setIsModalOpen(true)}>{conversationsIsOpen?'新建会话':'新建联系人'}</Button>
-            {conversationsIsOpen
-                ?<NewConversationsModal open={isModalOpen} setOpen={setIsModalOpen}/>
-                :<NewContactsModal open={isModalOpen} setOpen={setIsModalOpen}/>}
-            <p style={{color:'white'}}>your id:{id}</p>
+            <div className={'TopMenu'}>
+                <Menu onClick={onMenuClick}
+                      selectedKeys={[current]}
+                      mode="horizontal"
+                      items={menuItems}
+
+                />
+            </div>
+            <div>
+                {conversationsIsOpen?<Conversations/>:<Contacts/>}
+                <Button onClick={()=>setIsModalOpen(true)}>{conversationsIsOpen?'新建会话':'新建联系人'}</Button>
+                {conversationsIsOpen
+                    ?<NewConversationsModal open={isModalOpen} setOpen={setIsModalOpen}/>
+                    :<NewContactsModal open={isModalOpen} setOpen={setIsModalOpen}/>}
+                <p style={{color:'white'}}>your id:{id}</p>
+            </div>
+
         </Sider>
     )
 }
