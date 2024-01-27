@@ -1,0 +1,70 @@
+.ChatBox {
+  height: 85%;
+  padding-top: 0.4rem;
+  padding-left: 0.2rem;
+}
+.Title{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  border-bottom: #e5e5ea 1px solid;
+  padding-left: 0.2rem;
+  height: 5%;
+}
+.bubble {
+  display: inline-block;
+  clear: both;
+  position: relative;
+  word-break: break-all
+}
+
+.bubble.left {
+  float: left;
+  margin-right: 20px;
+}
+.bubble.right {
+
+  float: right;
+  margin-left: 20px;
+}
+.bubble.left .content {
+  display: inline-block;
+  background-color: #e5e5ea;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 10px;
+  color: #000;
+}
+.bubble.left .sender{
+  color: grey;
+  text-align: left;
+}
+.bubble.right .content {
+  display: inline-block;
+  background-color: lightblue;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 10px;
+  color: #000;
+}
+.bubble.right .sender{
+  color: grey;
+  text-align: right;
+}
+
+.TypeArea{
+  height: 15%;
+  TextArea{
+    display: inline;
+    height: 6rem;
+    width: 85%;
+    resize: none;
+  }
+  Button{
+    display: inline;
+    width: 15%;
+    height: 6rem;
+    background-color: lightblue;
+  }
+}

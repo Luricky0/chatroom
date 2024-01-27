@@ -1,6 +1,7 @@
-import React, {useContext, useState} from "react";
+import React, {useCallback, useContext, useEffect, useMemo, useState} from "react";
 import useLocalStorage from "../hooks/useLocalStorage";
 import {useContacts} from "./ContactsProvider";
+import {useSocket} from "./SocketProvider";
 const ConversationsContext=React.createContext()
 
 function arrayEquality(a,b){
@@ -16,36 +17,41 @@ export function useConversations(){
 }
 export function ConversationsProvider({id, children}){
     const {contacts} = useContacts()
+    const socket = useSocket()
     const [conversations, setConversations] = useLocalStorage('conversations',[])
     const [selectedConversationIndex, setSelectedConversationIndex]=useState(0)
 
 
-    const formattedConversations = conversations.map((conversation,index)=>{
-        const recipients = conversation.recipients.map(recipient=>{
-            const contact = contacts.find(contact=>{return contact.id===recipient.id})
-            const name = (contact && contact.name) || recipient
-            return {id:recipient, name}
-        })
-        const messages= conversation.messages.map(message=>{
-            const contact = contacts.find(contact=>{return contact.id===message.sender})
-            const name = (contact && contact.name) || message.sender
-            const fromMe = id === message.sender
-            return {...message, senderName:name, fromMe}
-        })
-        const selected = index === selectedConversationIndex
-        return {...conversation, messages, recipients, selected}
+    //每当conversations更新时就格式化conversations
+    const formattedConversations = useMemo(() => {
+        return conversations.map((conversation, index) => {
+            const recipients = conversation.recipients.map((recipient) => {
+                const contact = contacts.find((contact) => contact.id === recipient);
+                const name = (contact && contact.name) || recipient;
+                return { id: recipient, name:name };
+            });
 
-    })
+            const messages = conversation.messages.map((message) => {
+                const contact = contacts.find((contact) => contact.id === message.sender);
+                const name = (contact && contact.name) || message.sender;
+                const fromMe = id === message.sender;
+                return { ...message, senderName: name, fromMe };
+            });
+
+            const selected = conversation === conversations[selectedConversationIndex];
+
+            return { ...conversation, messages, recipients, selected };
+        });
+    }, [conversations, contacts, id, selectedConversationIndex]);
+
 
     function createConversations(recipients){
         setConversations(prevConversations=>{
-            return [...prevConversations, {recipients, messages:[]
-            }]
+            return [...prevConversations, {recipients:recipients, messages:[]}]
         })
     }
 
-    function addMessageToConversation({recipients, text, sender}){
-        console.log({recipients, text, sender})
+    const addMessageToConversation = useCallback(({recipients, text, sender})=>{
         setConversations(prevConversations=>{
             let madeChange = false
             const newMessage= {sender, text}
@@ -71,10 +77,35 @@ export function ConversationsProvider({id, children}){
                     }]
             }
         })
-    }
+    }, [setConversations]);
+
+
+    //socket相关
+    useEffect(() => {
+        if(socket == null) return
+        socket.on('receive-message', addMessageToConversation)
+        return ()=>socket.off('receive-message')
+    }, [socket, addMessageToConversation]);
 
     function sendMessage(recipients, text){
+        socket.emit('send-message',{recipients, text})
         addMessageToConversation({recipients, text, sender:id})
+    }
+
+    function deleteConversations(selected){
+        //selected是一个recipients的数组
+        let newSelected = selected.map(recipients => recipients.map(r => r.id))
+        let newConversations = conversations.filter(conversation => {
+            return !newSelected.some(selectedRecipients => arrayEquality(selectedRecipients, conversation.recipients));
+        });
+        setConversations(newConversations);
+    }
+
+    function deleteOneConversation(selectedIndex) {
+        console.log(selectedIndex);
+        const newConversations = [...conversations];
+        newConversations.splice(selectedIndex, 1);
+        setConversations(newConversations);
     }
 
     const value={
@@ -82,7 +113,9 @@ export function ConversationsProvider({id, children}){
         selectedConversation: formattedConversations[selectedConversationIndex],
         sendMessage,
         setConversationIndex: setSelectedConversationIndex,
-        createConversations
+        deleteConversations,
+        createConversations,
+        deleteOneConversation
     }
     return(
         <ConversationsContext.Provider value={value}>

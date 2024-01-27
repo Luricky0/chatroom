@@ -1,7 +1,7 @@
 import React, {useRef} from "react";
 import { Button, Checkbox, Form, Input } from 'antd';
 import {v4 as uuidV4} from "uuid";
-
+import '../less/Login.less'
 export default function Login({onIdSubmit}){
     const onFinish = ({username,password}) => {
         onIdSubmit(username)
@@ -13,7 +13,7 @@ export default function Login({onIdSubmit}){
         onIdSubmit(uuidV4())
     }
     return(
-        <div>
+        <div className={'Basic'}>
             <Form
                 name="basic"
                 labelCol={{

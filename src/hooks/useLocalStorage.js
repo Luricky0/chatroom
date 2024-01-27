@@ -14,6 +14,7 @@ const UseLocalStorage = (key,initialValue) => {
     })
     //prefixedKey或value更改时自动设置localstorage
     useEffect(() => {
+        if(value!=null)
         localStorage.setItem(prefixedKey, JSON.stringify(value))
     }, [prefixedKey, value]);
 

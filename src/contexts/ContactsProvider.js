@@ -13,6 +13,11 @@ export function ContactsProvider({children}){
             return [...prevContacts, {id, name}]
         })
     }
+
+    const getNameById=(id)=>{
+        return contacts.find(contact=>contact.id===id).name
+    }
+
     return(
         <ContactsContext.Provider value={{contacts, createContact}}>
             {children}
