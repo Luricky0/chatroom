@@ -46,9 +46,17 @@ export function ConversationsProvider({id, children}){
 
 
     function createConversations(recipients){
-        setConversations(prevConversations=>{
-            return [...prevConversations, {recipients:recipients, messages:[]}]
+        let res = conversations.some(conversation=>{
+            return arrayEquality(conversation.recipients,recipients)
         })
+        if(!res){
+            setConversations(prevConversations=>{
+                return [...prevConversations, {recipients:recipients, messages:[], name:''}]
+            })
+        }else{
+            return false
+        }
+
     }
 
     const addMessageToConversation = useCallback(({recipients, text, sender})=>{
@@ -102,10 +110,19 @@ export function ConversationsProvider({id, children}){
     }
 
     function deleteOneConversation(selectedIndex) {
-        console.log(selectedIndex);
         const newConversations = [...conversations];
         newConversations.splice(selectedIndex, 1);
         setConversations(newConversations);
+    }
+
+    function setConversationName(newName){
+        const newConversations=conversations.map((conversation, index)=>{
+            if(index===selectedConversationIndex){
+                conversation.name = newName
+            }
+            return conversation
+        })
+        setConversations(newConversations)
     }
 
     const value={
@@ -115,8 +132,10 @@ export function ConversationsProvider({id, children}){
         setConversationIndex: setSelectedConversationIndex,
         deleteConversations,
         createConversations,
-        deleteOneConversation
+        deleteOneConversation,
+        setConversationName
     }
+
     return(
         <ConversationsContext.Provider value={value}>
             {children}

@@ -16,21 +16,7 @@ export function NewContactsModal(props){
             <Form
                 name="basic"
                 onFinish={onFinish}
-                autoComplete="off"
-            >
-                <Form.Item
-                    label="ID"
-                    name="id"
-                    rules={[
-                        {
-                            required: true,
-                            message: 'ID',
-                        },
-                    ]}
-                >
-                    <Input />
-                </Form.Item>
-
+                autoComplete="off">
                 <Form.Item
                     label="Name"
                     name="name"
@@ -39,10 +25,22 @@ export function NewContactsModal(props){
                             required: true,
                             message: 'Name',
                         },
-                    ]}
-                >
+                    ]}>
                     <Input/>
                 </Form.Item>
+                <Form.Item
+                    label="ID"
+                    name="id"
+                    rules={[
+                        {
+                            required: true,
+                            message: 'ID',
+                        },
+                    ]}>
+                    <Input />
+                </Form.Item>
+
+
                 <Form.Item>
                     <Button type="primary" htmlType="submit">
                         确定

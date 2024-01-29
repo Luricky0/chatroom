@@ -1,14 +1,15 @@
 import React, {useState} from "react";
-import {Button, Checkbox, Form, Modal, Row} from "antd";
+import {Button, Checkbox, Form, message, Modal, Row} from "antd";
 import {useContacts} from "../contexts/ContactsProvider";
 import {useConversations} from "../contexts/ConversationsProvider";
 
 export function NewConversationsModal(props){
     const {contacts} = useContacts()
-    const {createConversations}=useConversations()
+    const {conversations, createConversations}=useConversations()
     const onFinish=({recipients})=>{
-        createConversations(recipients)
+        let res=createConversations(recipients)
         props.setOpen(false)
+        if(res===false) message.info("已存在该会话")
     }
     return(
         <Modal open={props.open} title={"新建会话"}

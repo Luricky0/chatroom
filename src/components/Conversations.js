@@ -1,18 +1,20 @@
 import React, {useState} from "react";
 import {Dropdown, List, Menu, Popconfirm} from "antd";
 import {useConversations} from "../contexts/ConversationsProvider";
-import SubMenu from "antd/es/menu/SubMenu";
+
 export default function Conversations(){
     const {conversations, setConversationIndex, deleteOneConversation} = useConversations()
     const [selectedIndex,setSelectedIndex]=useState('0')
     const menuItems = conversations.map((conversation, index)=>{
         return{
-            label: conversation.recipients.map(recipient=>recipient.name).join(', '),
+            // label: conversation.recipients.map(recipient=>recipient.name).join(', '),
+            label: conversation.name===''?conversation.recipients.map(recipient=>recipient.name).join(', '):conversation.name,
             key: index+""
         }})
+
     const onMenuClick=({key})=>{
         setSelectedIndex(key)
-        setConversationIndex(key)
+        setConversationIndex(parseInt(key))
     }
 
     const getMenuItem=(menuItem)=>{
@@ -36,9 +38,7 @@ export default function Conversations(){
 
     return(
         <>
-            <Menu
-                  defaultSelectedKeys={selectedIndex}
-            >
+            <Menu defaultSelectedKeys={selectedIndex}>
                 {menuItems.map((menuItem) => (
                     getMenuItem(menuItem)
                 ))}

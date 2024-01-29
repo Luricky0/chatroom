@@ -43,15 +43,15 @@ export default function Sidebars({id}){
             <div className={'MidMenu'}>
                 {conversationsIsOpen?<Conversations/>:<Contacts id={id}/>}
                 <Button onClick={()=>setIsModalOpen(true)}><PlusOutlined /></Button>
-                <Button onClick={()=>setIsDeleteModalOpen(true)}><DeleteOutlined /></Button>
+                {conversationsIsOpen&&<Button onClick={()=>setIsDeleteModalOpen(true)}><DeleteOutlined /></Button>}
+
             </div>
             <div className={'BottomMenu'}>
                 {conversationsIsOpen
                     ?<NewConversationsModal open={isModalOpen} setOpen={setIsModalOpen}/>
                     :<NewContactsModal open={isModalOpen} setOpen={setIsModalOpen}/>}
-                {conversationsIsOpen
-                    ?<DeleteConversationsModal open={isDeleteModalOpen} setOpen={setIsDeleteModalOpen}/>
-                    :<NewContactsModal open={isModalOpen} setOpen={setIsModalOpen}/>}
+                {conversationsIsOpen&&
+                    <DeleteConversationsModal open={isDeleteModalOpen} setOpen={setIsDeleteModalOpen}/>}
             </div>
         </Sider>
     )

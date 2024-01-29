@@ -1,14 +1,17 @@
-import React, {useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {Button, Form, Input, message} from "antd";
 import TextArea from "antd/es/input/TextArea";
 import {useConversations} from "../contexts/ConversationsProvider";
 import {EnterOutlined} from '@ant-design/icons';
 import '../less/OpenConversations.less'
 export default function OpenConversations(){
-    const {sendMessage, selectedConversation}=useConversations()
+    const {sendMessage, selectedConversation, setConversationName} = useConversations()
     const [message,setMessage]=useState("");
+    const [showEditTitle,setShowEditTitle]=useState(false)
+    const inputVal=useRef(null)
+    const titleSpanRef=useRef()
     const onFinish=()=>{
-        if(message.trim().length !== 0){
+        if(message==null||message.trim().length !== 0){
             sendMessage(selectedConversation.recipients.map(r=>r.id), message)
             setMessage("")
         }else{
@@ -43,14 +46,57 @@ export default function OpenConversations(){
     const messagesDiv=()=>{
         return(
             <div className={'ChatBox'}>
-
                 {selectedConversation.messages.map((message,index)=>showText(message))}
             </div>
         )
     }
+
+
+
+    const getTitle=()=>{
+        if(showEditTitle){
+            return (
+                <Input placeholder={'输入新会话名'} ref={inputVal}/>
+            )
+        }else{
+            if(selectedConversation.name!==''){
+                return selectedConversation.name
+            }else{
+                return selectedConversation.recipients.map(r=>(r.name+" ")).join(', ')
+            }
+        }
+    }
+
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (titleSpanRef.current && !titleSpanRef.current.contains(event.target)) {
+                console.log(inputVal.current.input.value)
+                let newName=inputVal.current.input.value
+                if(newName.trim().length!==0){
+                    setConversationName(newName)
+                    setShowEditTitle(false)
+                }else{
+                    setShowEditTitle(false)
+                }
+            }
+        }
+
+        if (showEditTitle) {
+            document.addEventListener('click', handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener('click', handleClickOutside);
+        };
+    }, [showEditTitle]);
+
     return(
         <div style={{height:'100%'}}>
-            <div className={'Title'}><p>{selectedConversation.recipients.map(r=>(r.name+" ")).join(', ')}</p></div>
+            <div className={'Title'}>
+                <span onClick={()=>setShowEditTitle(true)} ref={titleSpanRef}>
+                    {getTitle()}
+                </span>
+            </div>
             {messagesDiv()}
             <div className={'TypeArea'}>
                 <TextArea size={"large"} value={message} onChange={(e)=>{setMessage(e.target.value)}}/>
