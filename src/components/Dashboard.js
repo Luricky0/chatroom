@@ -13,7 +13,7 @@ const Dashboard = ({id}) => {
     return (
             <Layout
                 style={{
-                    minHeight: '90vh',
+                    minHeight: '100%',
                 }}>
                 <Sidebars id={id}/>
                 <Layout>

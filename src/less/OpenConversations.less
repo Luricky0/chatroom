@@ -1,38 +1,52 @@
+@import "Basic";
 .ChatBox {
-  height: 85%;
+  height: 82vh;
   padding-top: 0.4rem;
   padding-left: 0.2rem;
+  overflow-y: scroll;
 }
 .Title{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.2rem;
-  border-bottom: #e5e5ea 1px solid;
+  border-bottom: @theme-background-color 1px solid;
   height: 5%;
-  span{
-    display: inline-block;
-    padding-left: 1rem;
-    width: 100%;
-  }
-  button{
-    display: inline-block;
-    text-align: center;
+  display: flex;
+  align-items: center;
+  .Label{
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
     height: 100%;
-    width: 4rem
-  }
-  input{
     font-size: 1.2rem;
-    border: none !important;
-    box-shadow: none !important;
-    background-color: transparent !important;
+    width: calc(100% - 8vh);
+    input{
+      height: 100%;
+      padding-left: 0;
+      font-size: 1.2rem;
+      border: none !important;
+      box-shadow: none !important;
+      background-color: transparent !important;
+    }
   }
+    .Profile{
+      position: sticky;
+      left: 97%;
+      top: 2.5%;
+      border: none;
+      background-color: transparent;
+      display: inline-block;
+      width: 6vh;
+      height: 100%;
+      width: 5vh;
+      height: 100%;
+      font-size: 24px;
+      text-align: center;
+    }
+
 }
 .bubble {
   display: inline-block;
   clear: both;
   position: relative;
-  word-break: break-all
+  word-break: break-all;
 }
 
 .bubble.left {
@@ -40,13 +54,12 @@
   margin-right: 20px;
 }
 .bubble.right {
-
   float: right;
   margin-left: 20px;
 }
 .bubble.left .content {
   display: inline-block;
-  background-color: #e5e5ea;
+  background-color: @theme-background-color;
   border-radius: 8px;
   padding: 10px;
   margin-bottom: 10px;
@@ -58,8 +71,8 @@
 }
 .bubble.right .content {
   display: inline-block;
-  background-color: lightblue;
-  border-radius: 8px;
+  background-color: @theme-color;
+  border-radius: 10px;
   padding: 10px;
   margin-bottom: 10px;
   color: #000;
@@ -70,17 +83,41 @@
 }
 
 .TypeArea{
-  height: 15%;
-  TextArea{
-    display: inline;
-    height: 6rem;
-    width: 85%;
-    resize: none;
+  height: 8vh;
+
+  background-color: white;
+  border-radius: 100px;
+  border: 2px solid lightblue !important;
+  Input{
+    display: inline-block;
+    height: 6vh;
+    width: calc(100% - 10vh);
+    margin-top: 0.7vh;
+    margin-left: 12px;
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+
+    font-size: 2vh;
   }
   Button{
-    display: inline;
-    width: 15%;
-    height: 6rem;
-    background-color: lightblue;
+    float: right;
+    width: 6vh;
+    height: 6vh;
+    margin-top: 0.7vh;
+    margin-right: 12px;
+
+    border: 1px solid lightblue !important;
+    border-radius: 100px;
+    background-color: @theme-color;
+    font-size:20px !important;
+    color:white !important;
+
+    textAlign:'center';
+    transition: transform 0.2s;
   }
+  Button:hover{
+    transform: scale(1.2);
+  }
+
 }

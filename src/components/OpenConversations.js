@@ -1,18 +1,23 @@
 import React, {useEffect, useRef, useState} from "react";
-import {Button, Form, Input, message} from "antd";
+import {Button, Form, Input, message, Modal} from "antd";
 import TextArea from "antd/es/input/TextArea";
 import {useConversations} from "../contexts/ConversationsProvider";
-import {EnterOutlined} from '@ant-design/icons';
+import {SendOutlined, ProfileOutlined} from '@ant-design/icons';
 import '../less/OpenConversations.less'
 export default function OpenConversations(){
     const {sendMessage, selectedConversation, setConversationName} = useConversations()
-    const [message,setMessage]=useState("");
-    const [showEditTitle,setShowEditTitle]=useState(false)
-    const inputVal=useRef(null)
-    const titleSpanRef=useRef()
+    const [message,setMessage] = useState("");
+    const [showEditTitle,setShowEditTitle] = useState(false)
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const inputVal= useRef(null)
+    const chatboxRef = useRef()
+    const titleSpanRef= useRef()
     const onFinish=()=>{
         if(message==null||message.trim().length !== 0){
             sendMessage(selectedConversation.recipients.map(r=>r.id), message)
+            setTimeout(()=>{
+                chatboxRef.current.scrollTop = chatboxRef.current.scrollHeight
+            },100)
             setMessage("")
         }else{
             setMessage("")
@@ -45,13 +50,11 @@ export default function OpenConversations(){
     }
     const messagesDiv=()=>{
         return(
-            <div className={'ChatBox'}>
+            <div className={'ChatBox'} ref={chatboxRef}>
                 {selectedConversation.messages.map((message,index)=>showText(message))}
             </div>
         )
     }
-
-
 
     const getTitle=()=>{
         if(showEditTitle){
@@ -63,6 +66,7 @@ export default function OpenConversations(){
                 return selectedConversation.name
             }else{
                 return selectedConversation.recipients.map(r=>(r.name+" ")).join(', ')
+
             }
         }
     }
@@ -84,24 +88,44 @@ export default function OpenConversations(){
         if (showEditTitle) {
             document.addEventListener('click', handleClickOutside);
         }
-
         return () => {
             document.removeEventListener('click', handleClickOutside);
         };
     }, [showEditTitle]);
 
+
     return(
         <div style={{height:'100%'}}>
+
             <div className={'Title'}>
-                <span onClick={()=>setShowEditTitle(true)} ref={titleSpanRef}>
+                <div className={'Label'}
+                    onClick={()=>setShowEditTitle(true)} ref={titleSpanRef}>
                     {getTitle()}
-                </span>
+                </div>
+                <button className={'Profile'} onClick={()=>setIsModalOpen(true)}>
+                    <ProfileOutlined/>
+                </button>
             </div>
+
             {messagesDiv()}
+
             <div className={'TypeArea'}>
-                <TextArea size={"large"} value={message} onChange={(e)=>{setMessage(e.target.value)}}/>
-                <Button onClick={onFinish}><EnterOutlined/></Button>
+                <Input value={message} onChange={(e)=>{setMessage(e.target.value)}}/>
+                <Button onClick={onFinish}>
+                    <SendOutlined
+                        className={'icon'}
+                        style={{}}/>
+                </Button>
             </div>
+
+            <Modal open={isModalOpen}
+                   onCancel={()=>{setIsModalOpen(false)}}
+                   cancelButtonProps={{style:{display:'none'}}}
+                   okButtonProps={{style:{display:'none'}}}>
+                <h1>{selectedConversation.name}</h1>
+                {selectedConversation.recipients.map(r=>r.id).join(', ')}
+
+            </Modal>
         </div>
     )
 }

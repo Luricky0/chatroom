@@ -19,14 +19,13 @@ export function ConversationsProvider({id, children}){
     const {contacts} = useContacts()
     const socket = useSocket()
     const [conversations, setConversations] = useLocalStorage('conversations',[])
-    const [selectedConversationIndex, setSelectedConversationIndex]=useState(0)
+    const [selectedConversationIndex, setSelectedConversationIndex] = useState(0)
 
-
-    //每当conversations更新时就格式化conversations
+    //格式化conversations，主要把recipients中的id转化为id+name，判断messages是否来自自己
     const formattedConversations = useMemo(() => {
         return conversations.map((conversation, index) => {
-            const recipients = conversation.recipients.map((recipient) => {
-                const contact = contacts.find((contact) => contact.id === recipient);
+            const recipients = conversation.recipients.map( (recipient) => {
+                const contact = contacts.find( (contact) => contact.id === recipient);
                 const name = (contact && contact.name) || recipient;
                 return { id: recipient, name:name };
             });

@@ -8,13 +8,17 @@
 .TopMenu .ant-menu,
 .TopMenu .ant-menu-sub,
 .TopMenu .ant-menu-inline {
+  text-align: center;
   height: 100%;
+}
+.TopMenu .ant-menu-item-active:after {
+  border-bottom-color: lightblue !important;
 }
 .TopMenu .ant-menu-item-selected {
   color: black !important;
 }
 .TopMenu .ant-menu-item-selected:after {
-  border-bottom-color: grey !important;
+  border-bottom-color: lightblue !important;
 }
 .MidMenu {
   height: 95%;
@@ -50,9 +54,9 @@
   width: 100%;
   color: black;
 }
-.MidMenu .ant-btn:hover {
+.MidMenu Button:hover {
   border: none !important ;
-  background-color: #f5f5f6;
+  background-color: lightblue;
   color: black !important;
 }
 /*# sourceMappingURL=Sidebars.css.map */

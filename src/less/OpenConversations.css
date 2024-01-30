@@ -1,32 +1,43 @@
 .ChatBox {
-  height: 85%;
+  height: 82vh;
   padding-top: 0.4rem;
   padding-left: 0.2rem;
+  overflow-y: scroll;
 }
 .Title {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.2rem;
   border-bottom: #e5e5ea 1px solid;
   height: 5%;
+  display: flex;
+  align-items: center;
 }
-.Title span {
-  display: inline-block;
-  padding-left: 1rem;
-  width: 100%;
-}
-.Title button {
-  display: inline-block;
-  text-align: center;
+.Title .Label {
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
   height: 100%;
-  width: 4rem;
+  font-size: 1.2rem;
+  width: calc(100% - 8vh);
 }
-.Title input {
+.Title .Label input {
+  height: 100%;
+  padding-left: 0;
   font-size: 1.2rem;
   border: none !important;
   box-shadow: none !important;
   background-color: transparent !important;
+}
+.Title .Profile {
+  position: sticky;
+  left: 97%;
+  top: 2.5%;
+  border: none;
+  background-color: transparent;
+  display: inline-block;
+  width: 6vh;
+  width: 5vh;
+  height: 100%;
+  font-size: 24px;
+  text-align: center;
 }
 .bubble {
   display: inline-block;
@@ -57,7 +68,7 @@
 .bubble.right .content {
   display: inline-block;
   background-color: lightblue;
-  border-radius: 8px;
+  border-radius: 10px;
   padding: 10px;
   margin-bottom: 10px;
   color: #000;
@@ -67,18 +78,37 @@
   text-align: right;
 }
 .TypeArea {
-  height: 15%;
+  height: 8vh;
+  background-color: white;
+  border-radius: 100px;
+  border: 2px solid lightblue !important;
 }
-.TypeArea TextArea {
-  display: inline;
-  height: 6rem;
-  width: 85%;
-  resize: none;
+.TypeArea Input {
+  display: inline-block;
+  height: 6vh;
+  width: calc(100% - 10vh);
+  margin-top: 0.7vh;
+  margin-left: 12px;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  font-size: 2vh;
 }
 .TypeArea Button {
-  display: inline;
-  width: 15%;
-  height: 6rem;
+  float: right;
+  width: 6vh;
+  height: 6vh;
+  margin-top: 0.7vh;
+  margin-right: 12px;
+  border: 1px solid lightblue !important;
+  border-radius: 100px;
   background-color: lightblue;
+  font-size: 20px !important;
+  color: white !important;
+  textAlign: 'center';
+  transition: transform 0.2s;
+}
+.TypeArea Button:hover {
+  transform: scale(1.2);
 }
 /*# sourceMappingURL=OpenConversations.css.map */

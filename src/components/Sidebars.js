@@ -6,19 +6,20 @@ import {NewConversationsModal} from "./NewConversationsModal";
 import {NewContactsModal} from "./NewContactsModal";
 import Contacts from "./Contacts";
 import {
-    PlusOutlined, DeleteOutlined
+    PlusOutlined, DeleteOutlined,MessageOutlined, ContactsOutlined, UserAddOutlined
 } from '@ant-design/icons';
 import '../less/Sidebars.less'
 import {DeleteConversationsModal} from "./DeleteConversationsModal";
 
 const menuItems=[
     {
-        label: '会话',
-        key: 'Conversations'
+        key: 'Conversations',
+        icon: <MessageOutlined style={{fontSize:'22px',paddingLeft:'10px'}} />
     },
     {
-        label: '联系人',
-        key: 'Contacts'
+        label: '',
+        key: 'Contacts',
+        icon: <ContactsOutlined style={{fontSize:'22px',paddingLeft:'10px'}} />
     }
 ]
 export default function Sidebars({id}){
@@ -42,8 +43,12 @@ export default function Sidebars({id}){
             </div>
             <div className={'MidMenu'}>
                 {conversationsIsOpen?<Conversations/>:<Contacts id={id}/>}
-                <Button onClick={()=>setIsModalOpen(true)}><PlusOutlined /></Button>
-                {conversationsIsOpen&&<Button onClick={()=>setIsDeleteModalOpen(true)}><DeleteOutlined /></Button>}
+                <Button onClick={()=>setIsModalOpen(true)}>
+                    {conversationsIsOpen?<PlusOutlined />:<UserAddOutlined />}
+                </Button>
+                {conversationsIsOpen&&<Button onClick={()=>setIsDeleteModalOpen(true)}>
+                    <DeleteOutlined />
+                </Button>}
 
             </div>
             <div className={'BottomMenu'}>
