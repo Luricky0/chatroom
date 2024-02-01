@@ -1,7 +1,8 @@
 import React, {useState} from "react";
-import {Button, Checkbox, Form, message, Modal, Row} from "antd";
+import {Button, Checkbox, Col, Form, message, Modal, Row} from "antd";
 import {useContacts} from "../contexts/ContactsProvider";
 import {useConversations} from "../contexts/ConversationsProvider";
+import '../less/NewModal.less'
 
 export function NewConversationsModal(props){
     const {contacts} = useContacts()
@@ -18,9 +19,17 @@ export function NewConversationsModal(props){
                   okButtonProps={{style:{display:'none'}}}
                   okText={'确定'}>
             <Form onFinish={onFinish}>
-                <Form.Item name="recipients" label="联系人：">
-                    <Checkbox.Group>
-                        {contacts.map(contact=>(<Checkbox value={contact.id}>{contact.name}</Checkbox>))}
+                <Form.Item name="recipients">
+                    <Checkbox.Group style={{ width: '100%' }}>
+                        {contacts.map(contact=>(
+                            <Col span={16}>
+                                <Checkbox
+                                    className={'mycheckbox'}
+                                    value={contact.id}>
+                                    {contact.name}
+                                </Checkbox>
+                            </Col>
+                        ))}
                     </Checkbox.Group>
                 </Form.Item>
                 <Form.Item><Button htmlType={'submit'}>确定</Button></Form.Item>

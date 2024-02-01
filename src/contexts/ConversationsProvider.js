@@ -45,14 +45,16 @@ export function ConversationsProvider({id, children}){
 
 
     function createConversations(recipients){
-        let res = conversations.some(conversation=>{
+        let res = conversations.findIndex(conversation=>{
             return arrayEquality(conversation.recipients,recipients)
         })
-        if(!res){
+        if(res===-1){
             setConversations(prevConversations=>{
                 return [...prevConversations, {recipients:recipients, messages:[], name:''}]
             })
         }else{
+            console.log(res)
+            setSelectedConversationIndex(res)
             return false
         }
 
@@ -132,7 +134,8 @@ export function ConversationsProvider({id, children}){
         deleteConversations,
         createConversations,
         deleteOneConversation,
-        setConversationName
+        setConversationName,
+        selectedConversationIndex
     }
 
     return(

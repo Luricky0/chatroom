@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from "react";
-import {Button, Form, Input, message, Modal} from "antd";
+import {Button, Form, Input, List, message, Modal} from "antd";
 import TextArea from "antd/es/input/TextArea";
 import {useConversations} from "../contexts/ConversationsProvider";
 import {SendOutlined, ProfileOutlined} from '@ant-design/icons';
@@ -23,6 +23,12 @@ export default function OpenConversations(){
             setMessage("")
         }
     }
+
+    useEffect(()=>{
+        setTimeout(()=>{
+            chatboxRef.current.scrollTop = chatboxRef.current.scrollHeight
+        })
+    },[selectedConversation])
     const showText=(message)=>{
         if(message.fromMe){
             return(
@@ -62,8 +68,10 @@ export default function OpenConversations(){
                 <Input placeholder={'输入新会话名'} ref={inputVal}/>
             )
         }else{
+
             if(selectedConversation.name!==''){
-                return selectedConversation.name
+                let len=selectedConversation.recipients.length
+                return selectedConversation.name+"("+len+")"
             }else{
                 return selectedConversation.recipients.map(r=>(r.name+" ")).join(', ')
 
@@ -122,8 +130,12 @@ export default function OpenConversations(){
                    onCancel={()=>{setIsModalOpen(false)}}
                    cancelButtonProps={{style:{display:'none'}}}
                    okButtonProps={{style:{display:'none'}}}>
-                <h1>{selectedConversation.name}</h1>
-                {selectedConversation.recipients.map(r=>r.id).join(', ')}
+                <h2>{selectedConversation.name===""?selectedConversation.recipients.map(r=>r.name).join(", "):selectedConversation.name}
+                    会话成员</h2>
+
+                <List>
+                    {selectedConversation.recipients.map(r=>(<List.Item>{r.name}</List.Item>))}
+                </List>
 
             </Modal>
         </div>

@@ -1,0 +1,27 @@
+.ant-modal {
+  font-size: 18px;
+}
+.ant-modal .ant-checkbox-inner {
+  height: 3vh;
+  width: 3vh;
+  border: 1px solid #000 !important;
+}
+.ant-modal .ant-checkbox-checked .ant-checkbox-inner {
+  height: 3vh;
+  width: 3vh;
+  background-color: #fff !important;
+  border-color: #000 !important;
+}
+.ant-modal .ant-checkbox-checked .ant-checkbox-inner::after {
+  height: 2vh;
+  width: 1vh;
+  border-bottom: 2px solid #000;
+  border-right: 2px solid #000;
+}
+.ant-modal .mycheckbox {
+  font-size: 18px;
+}
+.ant-modal p {
+  color: grey;
+}
+/*# sourceMappingURL=NewModal.css.map */

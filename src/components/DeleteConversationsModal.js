@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {Button, Checkbox, Col, Form, message, Modal, Row} from "antd";
 import {useContacts} from "../contexts/ContactsProvider";
 import {useConversations} from "../contexts/ConversationsProvider";
+import '../less/NewModal.less'
 
 export function DeleteConversationsModal(props){
     const {conversations, deleteConversations}=useConversations()

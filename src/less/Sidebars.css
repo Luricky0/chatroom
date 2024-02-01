@@ -56,7 +56,7 @@
 }
 .MidMenu Button:hover {
   border: none !important ;
+  color: white !important;
   background-color: lightblue;
-  color: black !important;
 }
 /*# sourceMappingURL=Sidebars.css.map */
