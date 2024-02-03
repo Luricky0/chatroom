@@ -9,7 +9,8 @@ export default function Conversations(){
         return{
             // label: conversation.recipients.map(recipient=>recipient.name).join(', '),
             label: conversation.name===''?conversation.recipients.map(recipient=>recipient.name).join(', '):conversation.name,
-            key: index+""
+            key: index+"",
+            unread: conversation.unread
         }})
 
     const onMenuClick=({key})=>{
@@ -17,7 +18,7 @@ export default function Conversations(){
     }
 
     const getMenuItem=(menuItem)=>{
-        if(menuItem.key===selectedConversationIndex){
+        if(Number(menuItem.key)===selectedConversationIndex){
             return(
                 <Popconfirm title="删除会话"
                             description="要删除这个会话吗?"
@@ -25,12 +26,19 @@ export default function Conversations(){
                             onCancel={()=>{}}
                             okText="确定"
                             cancelText="取消">
-                    <Menu.Item key={menuItem.key}>{menuItem.label}</Menu.Item>
+                    <Menu.Item key={menuItem.key}>
+                        {menuItem.label}
+                    </Menu.Item>
                 </Popconfirm>
             )
         }else{
             return (
-                <Menu.Item key={menuItem.key} onClick={onMenuClick}>{menuItem.label}</Menu.Item>
+                <Menu.Item key={menuItem.key} onClick={onMenuClick}>
+                    {menuItem.label}
+                    {menuItem.unread>0 && <div style={{display:'inline-block',float:"right",color:'red'}}>
+                        {menuItem.unread}
+                    </div>}
+                </Menu.Item>
             )
         }
     }

@@ -5,11 +5,13 @@ import {RightOutlined, UserOutlined} from '@ant-design/icons'
 import EditContactModal from "./EditContactModal";
 import "../less/Contacts.less"
 import EditAvatarModal from "./EditAvatarModal";
+import {ProfileModal} from "./ProfileModal";
 export default function Contacts({id}){
     const {contacts,deleteContact}=useContacts()
     const [isModalOpen,setIsModalOpen] = useState(false)
     const [isEditContactModalOpen,setIsEditContactModalOpen] = useState(false)
     const [isAvatarModalOpen,setIsAvatarModalOpen] = useState(false)
+    const [isProfileModalOpen,setIsProfileModalOpen] = useState(false)
     const contactRef = useRef({id:"",name:""})
     const showProfile=(c)=>{
         contactRef.current=c
@@ -23,7 +25,8 @@ export default function Contacts({id}){
     return (
         <div>
             <div style={{display:'flex',justifyContent:'center',paddingTop:'6px',paddingBottom:'6px'}}>
-                <Avatar shape="square" size={48} icon={<img src={`http://localhost:4998/avatar?id=${id}`}/>}/>
+                <Avatar shape="square" size={48} icon={<img src={`http://localhost:4998/avatar?id=${id}`}/>}
+                       onClick={()=>setIsProfileModalOpen(true)}/>
             </div>
             <Button onClick={() => setIsAvatarModalOpen(true)}>修改头像</Button>
             <List
@@ -80,6 +83,12 @@ export default function Contacts({id}){
                 isModalOpen={isAvatarModalOpen}
                 setIsModalOpen={setIsAvatarModalOpen}
                 id={id}/>
+
+            <ProfileModal
+                isModalOpen={isProfileModalOpen}
+                setIsModalOpen={setIsProfileModalOpen}
+                id={id}
+            />
 
         </div>
     );

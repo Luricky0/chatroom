@@ -16,12 +16,12 @@
     top: 45%;
     right: 15%;
     transform: translateY(-50%);
-    height: 40vh;
+    height: 48vh;
     width: 24vw;
-    border-radius: 10px ;
+    border-radius: 12px ;
     background-color: white;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 12px;
+    padding-right: 12px;
     h2{
       text-align: center;
     }
@@ -30,27 +30,46 @@
 
     }
     .ant-input{
-      width: calc(24vw - 20px);
+      width: calc(24vw - 24px);
+    }
+    .ant-input:hover{
+      border: solid @theme-color;
+    }
+    .ant-input:focus{
+      border: solid @theme-color;
     }
     .ant-input-password{
-      width: calc(24vw - 20px);
+      width: calc(24vw - 24px);
     }
     .ant-input-password{
-      width: calc(24vw - 20px);
+      width: calc(24vw - 24px);
+    }
+    .ant-input-affix-wrapper{
+      .ant-input{
+        border: none !important;
+      }
+    }
+    .ant-input-affix-wrapper-focused{
+      border: solid @theme-color !important;
+    }
+    .ant-input-affix-wrapper:hover{
+      border: solid @theme-color !important;
     }
     Button{
       background-color: black;
       color: white;
       border: black  ;
-      width: calc(24vw - 20px);
+      width: calc(24vw - 24px);
     }
     Button:hover{
       color: white;
       background-color: @theme-color !important;
-
     }
-
-
-
+    a{
+      color: @theme-color;
+    }
+  }
+  .LoginForm{
+    height: 40vh;
   }
 }

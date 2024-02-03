@@ -9,6 +9,11 @@ export function useContacts(){
 export function ContactsProvider({children}){
     const [contacts, setContacts] = useLocalStorage('contacts',[])
     const createContact=(id,name)=>{
+        let res=true;
+        contacts.map(contacts=>{
+            if(contacts.id===id) res=false
+        })
+        if(res===false) return res
         setContacts(prevContacts=>{
             return [...prevContacts, {id, name}]
         })

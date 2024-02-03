@@ -1,10 +1,11 @@
 import React, {useState} from "react";
-import {Button, Checkbox, Form, Input, Modal} from "antd";
+import {Button, Checkbox, Form, Input, message, Modal} from "antd";
 import {useContacts} from "../contexts/ContactsProvider";
 export function NewContactsModal(props){
     const {createContact}=useContacts()
     const onFinish=({id,name})=>{
-        createContact(id,name)
+        const res=createContact(id,name)
+        if(res===false)message.info('已存在该联系人')
         props.setOpen(false)
     }
 

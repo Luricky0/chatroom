@@ -15,12 +15,12 @@
   top: 45%;
   right: 15%;
   transform: translateY(-50%);
-  height: 40vh;
+  height: 48vh;
   width: 24vw;
-  border-radius: 10px ;
+  border-radius: 12px ;
   background-color: white;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-left: 12px;
+  padding-right: 12px;
 }
 .Basic Form h2 {
   text-align: center;
@@ -29,22 +29,43 @@
   width: 100%;
 }
 .Basic Form .ant-input {
-  width: calc(24vw - 20px);
+  width: calc(24vw - 24px);
+}
+.Basic Form .ant-input:hover {
+  border: solid lightblue;
+}
+.Basic Form .ant-input:focus {
+  border: solid lightblue;
 }
 .Basic Form .ant-input-password {
-  width: calc(24vw - 20px);
+  width: calc(24vw - 24px);
 }
 .Basic Form .ant-input-password {
-  width: calc(24vw - 20px);
+  width: calc(24vw - 24px);
+}
+.Basic Form .ant-input-affix-wrapper .ant-input {
+  border: none !important;
+}
+.Basic Form .ant-input-affix-wrapper-focused {
+  border: solid lightblue !important;
+}
+.Basic Form .ant-input-affix-wrapper:hover {
+  border: solid lightblue !important;
 }
 .Basic Form Button {
   background-color: black;
   color: white;
   border: black  ;
-  width: calc(24vw - 20px);
+  width: calc(24vw - 24px);
 }
 .Basic Form Button:hover {
   color: white;
   background-color: lightblue !important;
+}
+.Basic Form a {
+  color: lightblue;
+}
+.Basic .LoginForm {
+  height: 40vh;
 }
 /*# sourceMappingURL=Login.css.map */

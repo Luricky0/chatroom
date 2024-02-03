@@ -13,10 +13,14 @@ const Dashboard = ({id}) => {
     return (
             <Layout
                 style={{
-                    minHeight: '100%',
+                    minHeight: '100vh',
                 }}>
                 <Sidebars id={id}/>
-                <Layout>
+                <Layout
+                    style={{
+                        minHeight: '100vh',
+                    }}
+                >
                     <Content>
                         { selectedConversation && <OpenConversations/> }
                     </Content>

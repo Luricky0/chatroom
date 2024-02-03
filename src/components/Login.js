@@ -6,7 +6,6 @@ import {NewUserModal} from "./NewUserModal";
 export default function Login({onIdSubmit}){
     const [isNewUserModalOpen,setIsNewUserModalOpen]=useState(false)
     const [showRegister,setShowRegister]=useState(false)
-    const inputRef=useRef()
     const a= Math.floor(Math.random()*10)
     const b= Math.floor(Math.random()*10)
     const onFinish = ({username,password}) => {
@@ -15,14 +14,22 @@ export default function Login({onIdSubmit}){
     const onFinishFailed = () => {
     };
 
-    const createNewUser=()=>{
-        const asw = Number(inputRef.current.input.value)
-        console.log(asw)
-        if(a+b===asw){
-            onIdSubmit(uuidV4())
+    const onRegisterFinish=({password, confirm, captcha})=>{
+        if(password===confirm){
+            const asw = Number(captcha)
+            console.log(asw)
+            if(a+b===asw){
+                onIdSubmit(uuidV4())
+            }else{
+                message.info("请正确回答")
+            }
         }else{
-            message.info("请正确回答")
+            message.info("两次密码输入不一致")
         }
+
+    }
+
+    const onRegisterFinishFailed=()=>{
 
     }
 
@@ -31,36 +38,54 @@ export default function Login({onIdSubmit}){
             return(
                 <Form
                     name="basic"
-                    labelCol={{
-                        span: 8,
-                    }}
-                    wrapperCol={{
-                        span: 16,
-                    }}
-                    style={{
-                        maxWidth: 600,
-                    }}
                     initialValues={{
-                        remember: true,
+                        remember: false,
                     }}
-                    onFinish={onFinish}
-                    onFinishFailed={onFinishFailed}
+                    onFinish={onRegisterFinish}
+                    onFinishFailed={onRegisterFinishFailed}
                     autoComplete="off">
                     <h2>注册</h2>
-                    {a}+{b}=?
-                    答案：
-                    <Form.Item>
-                        <Input ref={inputRef}/>
+                    设置密码
+                    <Form.Item
+                        name={'password'}
+                        rules={[
+                            {
+                                required: true,
+                                message: '请设置你的密码',
+                            },
+                        ]}>
+                        <Input.Password/>
+                    </Form.Item>
+                    重复确认密码
+                    <Form.Item name={'confirm'}
+                               rules={[
+                                   {
+                                       required: true,
+                                       message: '请重复你的密码',
+                                   },
+                               ]}>
+                        <Input.Password/>
+                    </Form.Item>
+                    {a}+{b}的答案是？
+                    <Form.Item name={'captcha'}
+                               rules={[
+                                   {
+                                       required: true,
+                                       message: '请输入答案',
+                                   },
+                               ]}
+                    >
+                        <Input/>
                     </Form.Item>
                     <Form.Item>
-                        <Button onClick={createNewUser}>确定创建</Button>
+                        <Button type="primary" htmlType="submit">
+                            创建
+                        </Button>
+                        已经拥有账号？
+                        <a onClick={()=>setShowRegister(false)}>
+                            返回登录
+                        </a>
                     </Form.Item>
-                        <div>
-                            已经拥有账号？
-                            <a onClick={()=>setShowRegister(false)}>
-                                返回登录
-                            </a>
-                        </div>
                 </Form>
             )
 
@@ -68,15 +93,7 @@ export default function Login({onIdSubmit}){
             return(
                 <Form
                     name="basic"
-                    labelCol={{
-                        span: 8,
-                    }}
-                    wrapperCol={{
-                        span: 16,
-                    }}
-                    style={{
-                        maxWidth: 600,
-                    }}
+                    className={'LoginForm'}
                     initialValues={{
                         remember: true,
                     }}
@@ -114,12 +131,10 @@ export default function Login({onIdSubmit}){
                         <Button type="primary" htmlType="submit">
                             登录
                         </Button>
-                        <div>
-                            还没有账号？
-                            <a onClick={()=>setShowRegister(true)}>
-                                注册用户
-                            </a>
-                        </div>
+                        还没有账号？
+                        <a onClick={()=>setShowRegister(true)}>
+                            注册用户
+                        </a>
                     </Form.Item>
                 </Form>
             )
@@ -129,13 +144,6 @@ export default function Login({onIdSubmit}){
         <div className={'Basic'}>
             <h1>Chatroom</h1>
             {getFormView()}
-
-            {/*<NewUserModal open={isNewUserModalOpen}*/}
-            {/*              setOpen={setIsNewUserModalOpen}*/}
-            {/*              createUser={createNewUser}*/}
-            {/*/>*/}
-
-
         </div>
     )
 }

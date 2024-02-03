@@ -38,8 +38,12 @@ export function ConversationsProvider({id, children}){
             });
 
             const selected = conversation === conversations[selectedConversationIndex];
+            if(selected){
+                conversation.unread = 0
+            }
+            const unread = conversation.unread
 
-            return { ...conversation, messages, recipients, selected };
+            return { ...conversation, messages, recipients, selected, unread };
         });
     }, [conversations, contacts, id, selectedConversationIndex]);
 
@@ -50,7 +54,7 @@ export function ConversationsProvider({id, children}){
         })
         if(res===-1){
             setConversations(prevConversations=>{
-                return [...prevConversations, {recipients:recipients, messages:[], name:''}]
+                return [...prevConversations, {recipients:recipients, messages:[], name:'',unread:0}]
             })
         }else{
             console.log(res)
@@ -69,9 +73,11 @@ export function ConversationsProvider({id, children}){
                 if(arrayEquality(conversation.recipients, recipients))
                 {
                     madeChange=true
+                    const newUnread=conversation.unread+1
                     return {
                         ...conversation,
-                        messages:[...conversation.messages, newMessage]
+                        messages:[...conversation.messages, newMessage],
+                        unread:newUnread
                     }
                 }
                 return conversation
@@ -82,7 +88,8 @@ export function ConversationsProvider({id, children}){
                 return [...prevConversations,
                     {
                         recipients,
-                        messages: [newMessage]
+                        messages: [newMessage],
+                        unread:1
                     }]
             }
         })
