@@ -23,7 +23,9 @@ export function DeleteConversationsModal(props){
                         <Row>
                             {conversations.map(conversation=>(
                                 <Col span={16}>
-                                <Checkbox value={conversation.recipients}>{conversation.recipients.map(r=>r.name).join(", ")}</Checkbox>
+                                <Checkbox
+                                    className={'mycheckbox'}
+                                    value={conversation.recipients}>{conversation.recipients.map(r=>r.name).join(", ")}</Checkbox>
                                 </Col>
                             ))}
                         </Row>

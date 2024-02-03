@@ -21,6 +21,7 @@ function App() {
 
     return (
         <div>
+            {/*<Login/>*/}
             {id ? dashboard : <Login onIdSubmit={setId}/>}
         </div>
     );

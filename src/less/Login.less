@@ -1,9 +1,56 @@
+@import 'Basic';
 .Basic{
-  display: flex;
-  justify-content: center;
-  align-items: center;
   height: 90vh;
+  background-color: #e5e5ea;
+
+  h1{
+    position: absolute;
+    color: @theme-color;
+    font-size: 64px;
+    top: 35%;
+    right: 55%;
+    transform: translateY(-50%);
+  }
   Form{
+    position: absolute;
+    top: 45%;
+    right: 15%;
+    transform: translateY(-50%);
+    height: 40vh;
+    width: 24vw;
+    border-radius: 10px ;
+    background-color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+    h2{
+      text-align: center;
+    }
+    .ant-form-item{
+      width: 100%;
+
+    }
+    .ant-input{
+      width: calc(24vw - 20px);
+    }
+    .ant-input-password{
+      width: calc(24vw - 20px);
+    }
+    .ant-input-password{
+      width: calc(24vw - 20px);
+    }
+    Button{
+      background-color: black;
+      color: white;
+      border: black  ;
+      width: calc(24vw - 20px);
+    }
+    Button:hover{
+      color: white;
+      background-color: @theme-color !important;
+
+    }
+
+
 
   }
 }
