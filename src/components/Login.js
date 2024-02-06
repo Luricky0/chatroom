@@ -1,23 +1,34 @@
-import React, {useRef, useState} from "react";
-import {Button, Checkbox, Form, Input, message} from 'antd';
+import React, { useState} from "react";
+import {Button, Form, Input, message} from 'antd';
 import {v4 as uuidV4} from "uuid";
 import '../less/Login.less'
-import {NewUserModal} from "./NewUserModal";
+import axios from "axios";
+const validatePassword=(password)=> {
+    const pattern = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d.]{8,}$/;
+    return pattern.test(password);
+}
 export default function Login({onIdSubmit}){
-    const [isNewUserModalOpen,setIsNewUserModalOpen]=useState(false)
     const [showRegister,setShowRegister]=useState(false)
     const a= Math.floor(Math.random()*10)
     const b= Math.floor(Math.random()*10)
     const onFinish = ({username,password}) => {
-        onIdSubmit(username)
+        axios.post('http://localhost:8080/login',{username,password})
+            .then(()=>{onIdSubmit(username)})
+            .catch((error)=>{
+                console.log(error)
+                message.info("登录失败")
+            })
     };
     const onFinishFailed = () => {
     };
 
     const onRegisterFinish=({password, confirm, captcha})=>{
         if(password===confirm){
+            if(!validatePassword(password)){
+                message.info("密码必须>=8位且只含有数字，字母")
+                return
+            }
             const asw = Number(captcha)
-            console.log(asw)
             if(a+b===asw){
                 onIdSubmit(uuidV4())
             }else{
@@ -26,7 +37,6 @@ export default function Login({onIdSubmit}){
         }else{
             message.info("两次密码输入不一致")
         }
-
     }
 
     const onRegisterFinishFailed=()=>{

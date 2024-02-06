@@ -20,6 +20,7 @@ const beforeUpload = (file) => {
 const Avatar = ({id}) => {
     const [loading, setLoading] = useState(false);
     const [imageUrl, setImageUrl] = useState();
+    const seturl="http://localhost:4998/upload?id="+id
     const handleChange = (info) => {
         if (info.file.status === 'uploading') {
             setLoading(true);
@@ -52,7 +53,7 @@ const Avatar = ({id}) => {
         </button>
     );
 
-    const seturl="http://localhost:4998/upload?id="+id
+
     return (
         <>
             <Upload

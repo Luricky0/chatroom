@@ -1,0 +1,43 @@
+.Profile .ant-modal-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.Profile .ant-upload-wrapper {
+  width: fit-content;
+}
+Form .ant-form-item {
+  width: 100%;
+}
+Form .ant-input:hover {
+  border: solid lightblue;
+}
+Form .ant-input:focus {
+  border: solid lightblue;
+}
+Form .ant-input-affix-wrapper .ant-input {
+  border: none !important;
+}
+Form .ant-input-affix-wrapper-focused {
+  border: solid lightblue !important;
+}
+Form .ant-input-affix-wrapper:hover {
+  border: solid lightblue !important;
+}
+Form Button {
+  width: 100% !important;
+  background-color: black !important;
+  color: white !important;
+  border: black  ;
+  width: calc(24vw - 24px);
+}
+Form Button:hover {
+  border: none;
+  color: white;
+  background-color: lightblue !important;
+}
+Form a {
+  color: lightblue;
+}
+/*# sourceMappingURL=ProfileModal.css.map */

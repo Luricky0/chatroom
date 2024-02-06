@@ -18,8 +18,8 @@ export function NewContactsModal(props){
                 name="basic"
                 onFinish={onFinish}
                 autoComplete="off">
+                备注
                 <Form.Item
-                    label="Name"
                     name="name"
                     rules={[
                         {
@@ -29,8 +29,8 @@ export function NewContactsModal(props){
                     ]}>
                     <Input/>
                 </Form.Item>
+                ID
                 <Form.Item
-                    label="ID"
                     name="id"
                     rules={[
                         {

@@ -1,0 +1,62 @@
+@import "Basic";
+.Profile{
+  .ant-modal-body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .ant-upload-wrapper{
+    width: fit-content;
+  }
+
+
+}
+
+Form{
+  .ant-form-item{
+    width: 100%;
+  }
+  //.ant-input{
+  //  width: calc(24vw - 24px);
+  //}
+  .ant-input:hover{
+    border: solid @theme-color;
+  }
+  .ant-input:focus{
+    border: solid @theme-color;
+  }
+  //.ant-input-password{
+  //  width: calc(24vw - 24px);
+  //}
+  //.ant-input-password{
+  //  width: calc(24vw - 24px);
+  //}
+  .ant-input-affix-wrapper{
+    .ant-input{
+      border: none !important;
+    }
+  }
+  .ant-input-affix-wrapper-focused{
+    border: solid @theme-color !important;
+  }
+  .ant-input-affix-wrapper:hover{
+    border: solid @theme-color !important;
+  }
+  Button{
+    width: 100% !important;
+    background-color: black !important;
+    color: white !important;
+    border: black  ;
+    width: calc(24vw - 24px);
+  }
+  Button:hover{
+    border: none;
+    color: white;
+    background-color: @theme-color !important;
+  }
+  a{
+    color: @theme-color;
+  }
+
+}

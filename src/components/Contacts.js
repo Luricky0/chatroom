@@ -21,14 +21,14 @@ export default function Contacts({id}){
         deleteContact(contactRef.current.id)
         setIsModalOpen(false)
     }
-
     return (
         <div>
-            <div style={{display:'flex',justifyContent:'center',paddingTop:'6px',paddingBottom:'6px'}}>
-                <Avatar shape="square" size={48} icon={<img src={`http://localhost:4998/avatar?id=${id}`}/>}
-                       onClick={()=>setIsProfileModalOpen(true)}/>
+            <div className={'AvatarDiv'}>
+                <Avatar shape="square" size={48} icon={<UserOutlined />}
+                        src={`http://localhost:4998/avatar?id=${id}`}
+                        onClick={()=>setIsProfileModalOpen(true)}/>
             </div>
-            <Button onClick={() => setIsAvatarModalOpen(true)}>修改头像</Button>
+            {/*<Button onClick={() => setIsAvatarModalOpen(true)}>修改头像</Button>*/}
             <List
                 itemLayout="horizontal"
                 dataSource={contacts}
@@ -54,7 +54,7 @@ export default function Contacts({id}){
                     <h3>Chat ID: {contactRef.current.id}</h3>
                     <div>
                         <Button type={'text'} onClick={() => setIsEditContactModalOpen(true)}>
-                            修改昵称
+                            修改备注
                             <RightOutlined/>
                         </Button>
                         <Popconfirm title="删除联系人"

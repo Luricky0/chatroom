@@ -1,6 +1,17 @@
+@import "Basic";
 .ProfileModal{
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+.AvatarDiv{
+  display: flex;
+  justify-content: center;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  .ant-avatar:hover{
+    transform: scale(1.1);
+    border: 2px solid @theme-color;
+  }
 }
