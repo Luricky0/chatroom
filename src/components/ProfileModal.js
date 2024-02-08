@@ -1,24 +1,25 @@
 import React, {useState} from "react";
 import {Avatar, Button, Form, Input, message, Modal} from "antd";
-import axios from "axios";
 import '../less/ProfileModal.less'
 import EditAvatar from "./Avatar";
 import {UserOutlined} from "@ant-design/icons";
+import useAxios from "../hooks/useAxios";
 const validatePassword=(password)=> {
     const pattern = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d.]{8,}$/;
     return pattern.test(password);
 }
+
 export function ProfileModal(props){
     const [isEditPswModalOpen,setIsEditPswModalOpen]=useState(false)
     const [isEditAvatar,setIsEditAvatar]=useState(false)
+    const {api} = useAxios()
     const onFormFinish=({newpsw,confirm})=>{
-
         if(newpsw===confirm){
             if(!validatePassword(newpsw)){
                 message.info("密码必须>=8位且只含有数字，字母")
                 return
             }
-            axios.post('http://localhost:4998/update',{id:props.id,password:newpsw})
+            api.post('/update',{id:props.id,password:newpsw})
                 .then((data)=>{
                     message.info('修改成功')
                     setIsEditPswModalOpen(false)
@@ -27,7 +28,6 @@ export function ProfileModal(props){
                     message.info('修改失败')
                     console.log(error)
                 })
-
         }else{
             message.info("两次密码输入不一致")
         }
@@ -37,7 +37,6 @@ export function ProfileModal(props){
             return (
                 <EditAvatar id={props.id}/>
             )
-
         }else{
             return(
                 <Avatar shape="square" size={96}

@@ -2,20 +2,26 @@ import React, { useState} from "react";
 import {Button, Form, Input, message} from 'antd';
 import {v4 as uuidV4} from "uuid";
 import '../less/Login.less'
-import axios from "axios";
+import useAxios from "../hooks/useAxios";
 const validatePassword=(password)=> {
     const pattern = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d.]{8,}$/;
     return pattern.test(password);
 }
+
 export default function Login({onIdSubmit}){
     const [showRegister,setShowRegister]=useState(false)
-    const a= Math.floor(Math.random()*10)
-    const b= Math.floor(Math.random()*10)
-    const onFinish = ({username,password}) => {
-        axios.post('http://localhost:8080/login',{username,password})
-            .then(()=>{onIdSubmit(username)})
-            .catch((error)=>{
-                console.log(error)
+    const {api} = useAxios()
+    const a= Math.floor(Math.random()*10) //for captcha
+    const b= Math.floor(Math.random()*10) //for captcha
+    const onFinish = ({id,password}) => {
+        api.post('/login',{id,password})
+            .then((response)=>{
+                const token = response.data.token
+                const refreshToken = response.data.refreshToken
+                localStorage.setItem('token', token)
+                localStorage.setItem('refreshToken',refreshToken)
+                onIdSubmit(id)
+            }).catch((error)=>{
                 message.info("登录失败")
             })
     };
@@ -30,7 +36,15 @@ export default function Login({onIdSubmit}){
             }
             const asw = Number(captcha)
             if(a+b===asw){
-                onIdSubmit(uuidV4())
+                api.post('/register',{password})
+                    .then((response)=>{
+                        const token = response.data.token
+                        const refreshToken = response.data.refreshToken
+                        localStorage.setItem('token', token)
+                        localStorage.setItem('refreshToken',refreshToken)
+                        onIdSubmit(uuidV4())
+                    }).catch(error=>{
+                        console.log(error)})
             }else{
                 message.info("请正确回答")
             }
@@ -62,7 +76,7 @@ export default function Login({onIdSubmit}){
                             {
                                 required: true,
                                 message: '请设置你的密码',
-                            },
+                            }
                         ]}>
                         <Input.Password/>
                     </Form.Item>
@@ -72,7 +86,7 @@ export default function Login({onIdSubmit}){
                                    {
                                        required: true,
                                        message: '请重复你的密码',
-                                   },
+                                   }
                                ]}>
                         <Input.Password/>
                     </Form.Item>
@@ -82,7 +96,7 @@ export default function Login({onIdSubmit}){
                                    {
                                        required: true,
                                        message: '请输入答案',
-                                   },
+                                   }
                                ]}
                     >
                         <Input/>
@@ -111,14 +125,13 @@ export default function Login({onIdSubmit}){
                     onFinishFailed={onFinishFailed}
                     autoComplete="off">
                     <h2>登录</h2>
-
                     UUID
                     <Form.Item
-                        name="username"
+                        name="id"
                         rules={[
                             {
                                 required: true,
-                                message: '请输入你的用户名',
+                                message: '请输入你的UUID',
                             },
                         ]}>
                         <Input />

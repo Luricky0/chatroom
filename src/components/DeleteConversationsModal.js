@@ -25,13 +25,19 @@ export function DeleteConversationsModal(props){
                                 <Col span={16}>
                                 <Checkbox
                                     className={'mycheckbox'}
-                                    value={conversation.recipients}>{conversation.recipients.map(r=>r.name).join(", ")}</Checkbox>
+                                    value={conversation.recipients}>
+                                    {conversation.recipients.map(r=>r.name).join(", ")}
+                                </Checkbox>
                                 </Col>
                             ))}
                         </Row>
                     </Checkbox.Group>
                 </Form.Item>
-                <Form.Item><Button htmlType={'submit'}>确定</Button></Form.Item>
+                <Form.Item>
+                    <Button htmlType={'submit'}>
+                        确定
+                    </Button>
+                </Form.Item>
             </Form>
 
         </Modal>
