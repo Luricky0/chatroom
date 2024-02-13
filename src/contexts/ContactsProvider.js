@@ -38,12 +38,20 @@ export function ContactsProvider({children}){
 
     }
 
+    const getNameById=(id)=>{
+        if(id===localStorage.getItem('chat-id').slice(1,-1)) return "我"
+        const res = contacts.find(contact=>contact.id===id)
+        if(res===undefined) return ""
+        return res.name
+    }
+
     const val=
         {
             contacts,
             createContact,
             editName,
-            deleteContact
+            deleteContact,
+            getNameById
         }
 
     return(

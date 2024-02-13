@@ -5,6 +5,7 @@ import {ContactsProvider} from "../contexts/ContactsProvider";
 import {ConversationsProvider} from "../contexts/ConversationsProvider";
 import {SocketProvider} from "../contexts/SocketProvider";
 import '../less/Basic.less'
+import {PostsProvider} from "../contexts/PostsProvider";
 
 function App() {
     const [id,setId] = useLocalStorage('id')
@@ -12,7 +13,9 @@ function App() {
         <SocketProvider id={id}>
             <ContactsProvider>
                 <ConversationsProvider id={id}>
-                    <Dashboard id={id}/>
+                    <PostsProvider>
+                        <Dashboard id={id}/>
+                    </PostsProvider>
                 </ConversationsProvider>
             </ContactsProvider>
         </SocketProvider>

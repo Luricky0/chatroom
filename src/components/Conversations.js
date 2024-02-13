@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Dropdown, List, Menu, Popconfirm} from "antd";
 import {useConversations} from "../contexts/ConversationsProvider";
+import {NumberOutlined} from "@ant-design/icons";
 
 export default function Conversations(){
     const {conversations, setConversationIndex, deleteOneConversation,selectedConversationIndex} = useConversations()
@@ -14,7 +15,8 @@ export default function Conversations(){
         }})
 
     const onMenuClick=({key})=>{
-        setConversationIndex(parseInt(key))
+        if(key==='posts')setConversationIndex('posts')
+        else setConversationIndex(parseInt(key))
     }
 
     const getMenuItem=(menuItem)=>{
@@ -49,6 +51,9 @@ export default function Conversations(){
                 {menuItems.map((menuItem) => (
                     getMenuItem(menuItem)
                 ))}
+                <Menu.Item key={'posts'} onClick={onMenuClick}>
+                    <NumberOutlined />  瞬间
+                </Menu.Item>
             </Menu>
         </>
     )

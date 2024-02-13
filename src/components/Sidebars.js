@@ -6,10 +6,11 @@ import {NewConversationsModal} from "./NewConversationsModal";
 import {NewContactsModal} from "./NewContactsModal";
 import Contacts from "./Contacts";
 import {
-    PlusOutlined, DeleteOutlined,MessageOutlined, ContactsOutlined, UserAddOutlined
+    PlusOutlined, DeleteOutlined,MessageOutlined, ContactsOutlined, UserAddOutlined, NumberOutlined
 } from '@ant-design/icons';
 import '../less/Sidebars.less'
 import {DeleteConversationsModal} from "./DeleteConversationsModal";
+import {openPosts,usePosts} from "../contexts/PostsProvider";
 
 const menuItems=[
     {
@@ -28,6 +29,7 @@ export default function Sidebars({id}){
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
 
     const conversationsIsOpen = current==='Conversations'
+    const {setOpenPosts}=usePosts()
     const onMenuClick = (e) => {
         setCurrent(e.key);
     };
@@ -46,9 +48,13 @@ export default function Sidebars({id}){
                 <Button onClick={()=>setIsModalOpen(true)}>
                     {conversationsIsOpen?<PlusOutlined />:<UserAddOutlined />}
                 </Button>
+                {/*{conversationsIsOpen&&<Button onClick={()=>setOpenPosts(true)}>*/}
+                {/*    <NumberOutlined />帖子*/}
+                {/*</Button>}*/}
                 {conversationsIsOpen&&<Button onClick={()=>setIsDeleteModalOpen(true)}>
                     <DeleteOutlined />
                 </Button>}
+
 
             </div>
             <div className={'BottomMenu'}>

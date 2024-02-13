@@ -1,0 +1,34 @@
+.View {
+  padding-left: 4px;
+  overflow: scroll;
+}
+.Post {
+  width: 100%;
+  height: max-content;
+  border-bottom: 1px solid lightgray;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+.Post .PostTitle {
+  padding-left: 4px;
+}
+.Post .Text {
+  padding-left: 32px;
+  padding-top: 2px;
+  padding-bottom: 4px;
+  font-size: 14px;
+}
+.Post .Photo {
+  width: 100%;
+  height: max-content;
+  border-radius: 10px;
+}
+.Post .Photo img {
+  border-radius: 2px;
+  width: 100%;
+}
+.Post .Interactions {
+  padding-left: 4px;
+  font-size: 24px;
+}
+/*# sourceMappingURL=OpenPosts.css.map */

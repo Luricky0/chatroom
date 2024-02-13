@@ -4,12 +4,27 @@ import Sidebars from "./Sidebars";
 import {Content} from "antd/es/layout/layout";
 import OpenConversations from "./OpenConversations";
 import {useConversations} from "../contexts/ConversationsProvider";
+import OpenPosts from "./OpenPosts";
+import {usePosts} from "../contexts/PostsProvider";
 
 const Dashboard = ({id}) => {
     const {
         token: { colorBgContainer, borderRadiusLG },
     } = theme.useToken();
-    const {selectedConversation} = useConversations()
+    const {selectedConversation,selectedConversationIndex} = useConversations()
+    const {openPosts} = usePosts()
+    const getContentView=()=>{
+            if(selectedConversationIndex!=='posts'){
+                return(
+                    <OpenConversations/>
+                )
+            }else{
+                return (
+                    <OpenPosts/>
+                )
+            }
+
+    }
     return (
             <Layout
                 style={{
@@ -22,7 +37,8 @@ const Dashboard = ({id}) => {
                     }}
                 >
                     <Content>
-                        { selectedConversation && <OpenConversations/> }
+                        {getContentView()}
+                        {/*{ selectedConversation && <OpenConversations/> }*/}
                     </Content>
                 </Layout>
             </Layout>
