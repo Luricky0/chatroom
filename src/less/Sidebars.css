@@ -21,7 +21,7 @@
   border-bottom-color: lightblue !important;
 }
 .MidMenu {
-  height: 95%;
+  height: calc(100vh - 40px);
   background-color: white;
 }
 .MidMenu .ant-menu,

@@ -1,6 +1,30 @@
+@import "Basic";
 .View{
   padding-left: 4px;
-  overflow: scroll;
+  height: 90vh;
+  h1{
+  }
+  .Footer{
+    position: fixed;
+    width: 100%;
+    height: max-content;
+    background-color: white;
+    bottom: 2px;
+  }
+  .AddButton{
+    position: fixed;
+    right: 32px;
+    bottom: 32px;
+    border: 3px solid rgba(0,0,0,0.2);
+    border-radius: 12px;
+    font-size: 38px;
+    color: white;
+    background-color: rgba(0,0,0,0.2);
+  }
+}
+.Content{
+  height: 90vh;
+  overflow-y: scroll;
 }
 .Post{
   width: 100%;
@@ -11,6 +35,7 @@
   .PostTitle{
     padding-left: 4px;
   }
+
   .Text{
     padding-left: 32px;
     padding-top: 2px;
@@ -31,3 +56,7 @@
     font-size: 24px;
   }
 }
+.ant-modal{
+
+}
+
