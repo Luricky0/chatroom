@@ -12,37 +12,29 @@ export function PostsProvider({children}){
     const socket = useSocket()
     const [posts, setPosts] = useLocalStorage('posts',[])
     const [openPosts,setOpenPosts]=useState(false)
-    const addPostToPosts = ({posterId, imgSrc, text})=>{
-        const newPosts=
-            [
-                {
-                    UUID:uuidV4(),
-                    posterId:posterId,
-                    recipients:[],
-                    imgSrc:imgSrc,
-                    text:text,
-                    isLiked:false,
-                    likedBy:[]
-                }
-                , ...posts]
+    const addPostToPosts = (post)=>{
+        const newPosts= [post, ...posts]
         setPosts(newPosts)
     }
 
     const addLikeToPost=({UUID,likerId})=>{
-        const newPosts=posts.map(post=>{
+        console.log('addlike')
+        const newPosts = posts.map(post=>{
             if(post.UUID===UUID){
                 post.likedBy=[...post.likedBy,likerId]
             }
+            return post
         })
         setPosts(newPosts)
     }
 
     const removeLikeToPost=({UUID,dislikerId})=>{
-        const newPosts=posts.map(post=>{
+        const newPosts = posts.map(post=>{
             if(post.UUID===UUID){
-                const newLikedBy=post.likedBy.filter(likerId=>likerId!==dislikerId)
-                post.likedBy=newLikedBy
+                const newLikedBy = post.likedBy.filter(likerId=>likerId!==dislikerId)
+                post.likedBy = newLikedBy
             }
+            return post
         })
         setPosts(newPosts)
     }
@@ -50,27 +42,45 @@ export function PostsProvider({children}){
     useEffect(()=>{
         if(socket == null) return
         socket.on('receive-post', addPostToPosts)
-        socket.on('receive-like', addLikeToPost)
-        socket.on('cancel-like', removeLikeToPost)
         return ()=>socket.off('receive-post')
-    },[socket, addPostToPosts,addLikeToPost])
+    },[socket, addPostToPosts])
+
+    useEffect(()=>{
+        if(socket == null) return
+        socket.on('receive-like', addLikeToPost)
+        return ()=>socket.off('receive-like')
+    },[socket, addLikeToPost])
+
+    useEffect(()=>{
+        if(socket == null) return
+        socket.on('cancel-like', removeLikeToPost)
+        return ()=>socket.off('cancel-like')
+    },[socket, removeLikeToPost])
 
     const handleLike=(post)=>{
-        post.isLiked = !post.isLiked
-        const {posterId, UUID} = post
         const likerId=localStorage.getItem('chat-id').slice(1,-1)
+        post.isLiked = !post.isLiked
 
         if(post.isLiked){
-            socket.emit('like-post', {posterId, UUID, likerId})
+            socket.emit('like-post', {...post, likerId})
         }else{
-            socket.emit('dislike-post', {posterId, UUID, dislikerId:likerId})
+            socket.emit('dislike-post', {...post,dislikerId:likerId})
         }
 
     }
 
-    const sendPost=(post)=>{
-        socket.emit('send-post',{post})
-        addPostToPosts(post)
+    const sendPost=(imgSrc,text)=>{
+        const newPost={
+            UUID:uuidV4(),
+            posterId:localStorage.getItem('chat-id').slice(1,-1),
+            recipients:contacts.map(contact=>contact.id),
+            imgSrc:imgSrc,
+            text:text,
+            isLiked:false,
+            likedBy:[]
+        }
+        socket.emit('send-post', newPost)
+        addPostToPosts(newPost)
     }
 
     const value={
@@ -78,7 +88,8 @@ export function PostsProvider({children}){
         setOpenPosts,
         posts,
         addPostToPosts,
-        handleLike
+        handleLike,
+        sendPost
     }
 
     return(

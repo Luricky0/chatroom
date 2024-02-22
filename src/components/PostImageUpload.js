@@ -1,7 +1,6 @@
 import React from 'react';
 import { UploadOutlined } from '@ant-design/icons';
 import { Button, Upload } from 'antd';
-import {usePosts} from "../contexts/PostsProvider";
 const props = {
     action: 'http://localhost:4998/upload',
     listType: 'picture',
