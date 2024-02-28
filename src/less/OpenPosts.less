@@ -1,62 +1,103 @@
-@import "Basic";
-.View{
+@import 'Basic';
+.View {
   padding-left: 4px;
   height: 90vh;
-  h1{
-  }
-  .Footer{
+  .Footer {
     position: fixed;
     width: 100%;
     height: max-content;
     background-color: white;
     bottom: 2px;
   }
-  .AddButton{
+  .AddButton {
     position: fixed;
     right: 32px;
     bottom: 32px;
-    border: 3px solid rgba(0,0,0,0.2);
+    border: 3px solid rgba(0, 0, 0, 0.2);
     border-radius: 12px;
     font-size: 38px;
     color: white;
-    background-color: rgba(0,0,0,0.2);
+    background-color: rgba(0, 0, 0, 0.2);
   }
 }
-.Content{
+.Content {
   height: 90vh;
   overflow-y: scroll;
 }
-.Post{
+.Post {
   width: 100%;
   height: max-content;
   border-bottom: 1px solid lightgray;
   padding-top: 4px;
   padding-bottom: 4px;
-  .PostTitle{
+  .PostTitle {
     padding-left: 4px;
   }
 
-  .Text{
+  .Text {
     padding-left: 32px;
     padding-top: 2px;
     padding-bottom: 4px;
     font-size: 14px;
   }
-  .Photo{
+  .Photo {
     width: 100%;
     height: max-content;
     border-radius: 10px;
-    img{
+    img {
       border-radius: 2px;
       width: 100%;
     }
   }
-  .Interactions{
+  .Interactions {
     padding-left: 4px;
     font-size: 24px;
   }
 }
-.ant-modal{
+.CommentInput {
+  position: fixed;
+  bottom: 4px;
+  height: 42px;
+  width: 85%;
+  border-radius: 100px;
+  border: 2px solid lightblue !important;
+  background-color: white;
+  input {
+    display: inline;
+    border: none !important;
+    outline: none !important;
+    margin-top: 4px;
+    margin-left: 4px;
+    background-color: transparent !important;
+    height: 32px;
+    width: 75%;
+  }
+  button {
+    position: fixed;
+    margin-top: 4px;
+    right: 24px;
+    width: 32px;
+    height: 32px;
+    border: 1px solid lightblue !important;
+    border-radius: 100px;
+    background-color: @theme-color;
+    font-size: 20px !important;
+    color: white !important;
 
+    transition: transform 0.2s;
+  }
+  button:hover {
+    transform: scale(1.2);
+  }
+  // button {
+  //   height: 24px;
+  //   width: 32px;
+  //   border: none !important;
+  //   background-color: lightblue;
+  //   color: white;
+  //   font-size: 16px;
+  // }
+  // button:focused {
+  //   background-color: red;
+  // }
 }
-

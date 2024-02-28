@@ -52,4 +52,39 @@
   padding-left: 4px;
   font-size: 24px;
 }
+.CommentInput {
+  position: fixed;
+  bottom: 4px;
+  height: 42px;
+  width: 85%;
+  border-radius: 100px;
+  border: 2px solid lightblue !important;
+  background-color: white;
+}
+.CommentInput input {
+  display: inline;
+  border: none !important;
+  outline: none !important;
+  margin-top: 4px;
+  margin-left: 4px;
+  background-color: transparent !important;
+  height: 32px;
+  width: 75%;
+}
+.CommentInput button {
+  position: fixed;
+  margin-top: 4px;
+  right: 24px;
+  width: 32px;
+  height: 32px;
+  border: 1px solid lightblue !important;
+  border-radius: 100px;
+  background-color: lightblue;
+  font-size: 20px !important;
+  color: white !important;
+  transition: transform 0.2s;
+}
+.CommentInput button:hover {
+  transform: scale(1.2);
+}
 /*# sourceMappingURL=OpenPosts.css.map */
