@@ -14,16 +14,19 @@ export default function Login({onIdSubmit}){
     const a= Math.floor(Math.random()*10) //for captcha
     const b= Math.floor(Math.random()*10) //for captcha
     const onFinish = ({id,password}) => {
-        api.post('/login',{id,password})
-            .then((response)=>{
-                const token = response.data.token
-                const refreshToken = response.data.refreshToken
-                localStorage.setItem('token', token)
-                localStorage.setItem('refreshToken',refreshToken)
-                onIdSubmit(id)
-            }).catch((error)=>{
-                message.info("登录失败")
-            })
+        api.post(
+            '/login',
+            {uuid:id,password:password},
+            {headers:{"Content-Type":"application/json"}}
+        ).then((response)=>{
+                if(response.status===500){
+                    onIdSubmit(id)
+                }else{
+                    message.info("ID或密码错误")
+                }
+        }).catch((error)=>{
+                message.info("服务器连接失败",error)
+        })
     };
     const onFinishFailed = () => {
     };

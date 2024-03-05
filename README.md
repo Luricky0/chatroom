@@ -1,14 +1,11 @@
 # Chatroom
-一个类似于WhatsApp, WeChat, Instagram的前端免费开源项目，仅供个人参考学习，后端的代码内容将在更新后加入
-前端：react, antdesign, axios...
-后端: node.js, express, socketio...
-### 主要功能
-用户通过uuid辨识，在添加联系人后，用户可以通过创建新会话开始聊天
-在同一会话中可以与多名联系人进行交流
-用户可以设置自己的头像
-用户可以发布供好友查看的瞬间（类似Instagram）
-This is a project similar with WhatsApp or WeChat.
-User accounts are identified by uuid.
-After adding contacts, you can start chatting by creating
-a conversation. You can also chat with multiple users in one conversation.
-You are free to set up your own avatar that are shared to other users as well.
+一个类似于WhatsApp, WeChat, Instagram的前端开源项目，仅供个人参考学习\
+前端：react, ant-design, axios, socket\
+后端: node.js, express, socketio, mongoDb \
+后端server代码可以在https://github.com/Luricky0/chatroom-server查看
+## 主要功能
+● 这是一个类似于 WhatsApp, 微信, Instagram 的项目，支持用户间无需添加好友以类似短信的形式进行私聊或群聊，未读来信会进行提示\
+● 用户也可以添加联系人维护自己的通讯录\
+● 用户还可以发布对联系人可见的“瞬间”贴子来分享自己的日常照片，可以进行点赞、评论与贴子进行在线互动\
+● 用户可以自定义自己的头像，头像对所有添加自己为联系人的人可见\
+
