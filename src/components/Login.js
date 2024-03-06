@@ -19,7 +19,7 @@ export default function Login({onIdSubmit}){
             {uuid:id,password:password},
             {headers:{"Content-Type":"application/json"}}
         ).then((response)=>{
-                if(response.status===500){
+                if(response.status===200){
                     onIdSubmit(id)
                 }else{
                     message.info("ID或密码错误")
@@ -41,11 +41,8 @@ export default function Login({onIdSubmit}){
             if(a+b===asw){
                 api.post('/register',{password})
                     .then((response)=>{
-                        const token = response.data.token
-                        const refreshToken = response.data.refreshToken
-                        localStorage.setItem('token', token)
-                        localStorage.setItem('refreshToken',refreshToken)
-                        onIdSubmit(uuidV4())
+                        console.log()
+                        onIdSubmit(response.data.toString())
                     }).catch(error=>{
                         console.log(error)})
             }else{

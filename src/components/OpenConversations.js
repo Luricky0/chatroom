@@ -4,8 +4,10 @@ import TextArea from "antd/es/input/TextArea";
 import {useConversations} from "../contexts/ConversationsProvider";
 import {SendOutlined, ProfileOutlined} from '@ant-design/icons';
 import '../less/OpenConversations.less'
+import {useContacts} from "../contexts/ContactsProvider";
 export default function OpenConversations(){
     const {sendMessage, selectedConversation, setConversationName} = useConversations()
+    const {getNameById}=useContacts()
     const [message,setMessage] = useState("");
     const [showEditTitle,setShowEditTitle] = useState(false)
     const [isModalOpen, setIsModalOpen] = useState(false)
@@ -57,24 +59,24 @@ export default function OpenConversations(){
     const messagesDiv=()=>{
         return(
             <div className={'ChatBox'} ref={chatboxRef}>
-                {selectedConversation.messages.map((message,index)=>showText(message))}
+                {selectedConversation!=null&&selectedConversation.messages.map((message,index)=>showText(message))}
             </div>
         )
     }
 
     const getTitle=()=>{
+        if(selectedConversation==null) return
         if(showEditTitle){
             return (
                 <Input placeholder={'输入新会话名'} ref={inputVal}/>
             )
         }else{
 
-            if(selectedConversation.name!==''){
+            if(selectedConversation.name!=null&&selectedConversation.name!==""){
                 let len=selectedConversation.recipients.length
                 return selectedConversation.name+"("+len+")"
             }else{
-                return selectedConversation.recipients.map(r=>(r.name+" ")).join(', ')
-
+                return selectedConversation.recipients.map(recipient=>recipient.name).join(', ')
             }
         }
     }

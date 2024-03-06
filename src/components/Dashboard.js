@@ -14,15 +14,15 @@ const Dashboard = ({id}) => {
     const {selectedConversation,selectedConversationIndex} = useConversations()
     const {openPosts} = usePosts()
     const getContentView=()=>{
-            if(selectedConversationIndex!=='posts'){
-                return(
+        if(selectedConversation!=null&&selectedConversationIndex !== 'posts'){
+            return(
                     <OpenConversations/>
-                )
-            }else{
-                return (
+            )
+        }else{
+            return (
                     <OpenPosts/>
-                )
-            }
+            )
+        }
 
     }
     return (
@@ -38,7 +38,6 @@ const Dashboard = ({id}) => {
                 >
                     <Content>
                         {getContentView()}
-                        {/*{ selectedConversation && <OpenConversations/> }*/}
                     </Content>
                 </Layout>
             </Layout>

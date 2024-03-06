@@ -9,7 +9,7 @@ export default function Conversations(){
     const menuItems = conversations.map((conversation, index)=>{
         return{
             // label: conversation.recipients.map(recipient=>recipient.name).join(', '),
-            label: conversation.name===''?conversation.recipients.map(recipient=>recipient.name).join(', '):conversation.name,
+            label: (conversation.name==null||conversation.name==="")?conversation.recipients.map(recipient=>recipient.name).join(', '):conversation.name,
             key: index+"",
             unread: conversation.unread
         }})
