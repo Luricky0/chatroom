@@ -1,6 +1,6 @@
 # Chatroom
 一个类似于WhatsApp, WeChat, Instagram的前端开源项目，仅供个人参考学习\
-前端技术栈：react, ant-design, axios, socket\
+前端技术栈：react, ant-design, axios, socket, indexedDB\
 后端技术栈：node.js, express, socketio, mongoDb \
 后端server代码：https://github.com/Luricky0/chatroom-server
 ## 主要功能
