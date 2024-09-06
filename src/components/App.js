@@ -7,18 +7,19 @@ import {SocketProvider} from "../contexts/SocketProvider";
 import '../less/Basic.less'
 import {PostsProvider} from "../contexts/PostsProvider";
 
+
 function App() {
     const [id,setId] = useLocalStorage('id')
     const dashboard=(
-        <SocketProvider id={id}>
-            <ContactsProvider>
-                <ConversationsProvider id={id}>
-                    <PostsProvider>
-                        <Dashboard id={id}/>
-                    </PostsProvider>
-                </ConversationsProvider>
-            </ContactsProvider>
-        </SocketProvider>
+            <SocketProvider id={id}>
+                <ContactsProvider>
+                    <ConversationsProvider id={id}>
+                        <PostsProvider>
+                            <Dashboard id={id}/>
+                        </PostsProvider>
+                    </ConversationsProvider>
+                </ContactsProvider>
+            </SocketProvider>
     )
 
     return (
